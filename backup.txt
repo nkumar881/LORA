@@ -1,0 +1,50 @@
+import pandas as pd
+from itertools import combinations
+
+# === Load the merged dataset ===
+df = pd.read_csv("merged_lora_weather_final.csv")
+
+# === Define weather and target (RSSI) ===
+weather_vars = [
+    'Humidity', 'KineticEnergy', 'MORVisibility', 'ParticlesDetected', 'Pressure',
+    'RadarReflectivity', 'RainAbsolute', 'RainAccumulated', 'RainIntensity', 'RainRate',
+    'SnowDepthIntensity', 'Temperature', 'WindDirection', 'WindSpeed'
+]
+target_metric = 'RSSI'
+
+# === Convert columns to numeric ===
+df[target_metric] = pd.to_numeric(df[target_metric], errors='coerce')
+for col in weather_vars:
+    df[col] = pd.to_numeric(df[col], errors='coerce')
+
+# === Step 1: Correlation of individual weather parameters with RSSI ===
+correlations = []
+for col in weather_vars:
+    corr = df[[col, target_metric]].corr().iloc[0, 1]
+    correlations.append((col, corr))
+
+# === Step 2: Filter based on |correlation| >= 0.05 ===
+filtered = [(col, corr) for col, corr in correlations if abs(corr) >= 0.06]
+filtered_features = [col for col, _ in filtered]
+
+# === Step 3: Display individual correlations ===
+print(f"\nCorrelation of weather features with {target_metric}:\n")
+for col, corr in sorted(filtered, key=lambda x: abs(x[1]), reverse=True):
+    print(f"{col:25} -> {corr:+.4f}")
+
+# === Step 4: Pairwise average and correlation with RSSI ===
+print(f"\nPairwise averaged correlations with {target_metric} (sorted by R²):\n")
+
+combo_correlations = []
+for col1, col2 in combinations(filtered_features, 2):
+    combo_avg = df[[col1, col2]].mean(axis=1)
+    r = combo_avg.corr(df[target_metric])
+    r_squared = r**2 if pd.notnull(r) else float('nan')
+    combo_correlations.append(((col1, col2), r, r_squared))
+
+# Sort by R² descending
+combo_correlations.sort(key=lambda x: x[2], reverse=True)
+
+# Print results
+for (col1, col2), r, r_squared in combo_correlations:
+    print(f"{col1:15} + {col2:15} -> r: {r:+.4f}, R²: {r_squared:.4f}")
