@@ -1,0 +1,6 @@
+\section{Introduction}
+Long Range (LoRa) links are used in low-power sensing systems, but propagation and application-level performance may vary with environmental conditions. The analyzed repository investigates whether co-located weather measurements are associated with four observed LoRa metrics: received signal strength indicator (RSSI), signal-to-noise ratio (SNR), throughput, and latency.
+
+The reconstructed research objective is to quantify those associations and evaluate whether standard regression models can predict each link metric from weather variables. The code implies the working hypothesis that weather measurements contain predictive information about LoRa performance. No preregistered hypothesis, protocol, or significance criterion is present; accordingly, this paper treats the work as retrospective and exploratory.
+
+The contribution is an evidence-constrained reconstruction of the existing pipeline: (i) timestamp-window fusion of packet and weather logs; (ii) Pearson correlation screening; and (iii) holdout evaluation of linear, regularized, polynomial, nearest-neighbor, and random-forest regressors. The results show modest associations for RSSI, SNR, and throughput, but weak out-of-sample prediction and no useful latency prediction. They should not be interpreted as causal weather effects.

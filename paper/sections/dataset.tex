@@ -1,0 +1,13 @@
+\section{Dataset}
+\subsection{LoRa Measurements}
+The consolidated LoRa file contains 1,059 records with six fields: an acquisition timestamp, a decoded payload containing a second timestamp, RSSI, SNR, throughput, and latency. The acquisition timestamps range from December 17, 2024 20:51:17.814 to January 2, 2025 16:47:52.232. A separate snow-session file contains 187 records from December 17--18 and appears to be a subset or precursor to the consolidated log. The repository does not document the radio hardware, carrier frequency, spreading factor, bandwidth, coding rate, transmit power, antenna configuration, separation distance, packet size, or throughput/latency calculation.
+
+\subsection{Weather Measurements}
+The consolidated weather file contains 14,494 rows and 22 columns over December 17, 2024 20:50:01.796 to January 2, 2025 16:47:21.315. Scalar fields include humidity, kinetic energy, meteorological optical range (MOR) visibility, particles detected, pressure, radar reflectivity, rain measures, snow-depth intensity, temperature, weather codes, wind direction, and wind speed. Two fields contain semicolon-delimited vectors rather than scalar observations: average particle speed and volume-equivalent diameter; a raw diameter histogram is also present. Units and instrument specifications are absent.
+
+The consolidated weather file contains 2,432 exact duplicate rows and 1,358 missing cells. The earlier \texttt{WilsonHall\_snow.csv} contains 10,023 rows, including 1,668 exact duplicates. No source documentation establishes whether duplicates are repeated valid samples or ingestion artifacts.
+
+\subsection{Merged Analytical Dataset}
+The merge retained 1,058 of 1,059 LoRa records (99.91\%) and produced 28 columns. Its packet timestamps range from December 17, 2024 20:51:14.394717 to January 2, 2025 16:47:21.469417. All four target variables and the 14 scalar weather variables used in the reproduced analysis are complete in these 1,058 rows. Table~\ref{tab:target-summary} summarizes the targets.
+
+\input{tables/target_summary}

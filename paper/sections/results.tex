@@ -1,0 +1,28 @@
+\section{Results}
+\subsection{Pairwise Associations}
+Table~\ref{tab:correlations} reports the strongest reproducible scalar-feature correlations. Rain absolute and rain accumulated each correlate with RSSI at $r=0.386$, SNR at $r=0.450$, and throughput at $r=0.312$. Pressure is negatively correlated with the same metrics ($r=-0.336$, $-0.433$, and $-0.267$). Latency has no individual association exceeding $|r|=0.084$. No $p$-values or confidence intervals were calculated in the repository.
+
+\input{tables/correlations}
+
+Stored trio tables report a rain-accumulated/pressure/rain-absolute average correlated with RSSI at $r=0.386$ ($R^2=0.149$) and SNR at $r=0.450$ ($R^2=0.203$). The best stored throughput trio---rain accumulated, rain absolute, and wind speed---has $r=0.314$ ($R^2=0.099$). The only retained latency trio has $r=-0.097$ ($R^2=0.009$). These averages mix units and include redundant rain fields, so they do not improve the physical interpretation over individual correlations.
+
+\subsection{Predictive Models}
+Table~\ref{tab:model-results} gives holdout results reproduced from the scripts. Polynomial regression is the strongest tested RSSI configuration ($R^2=0.190$, RMSE $=3.958$), while Lasso is strongest for SNR ($R^2=0.208$, RMSE $=3.077$) and throughput ($R^2=0.118$, RMSE $=16.115$). Every latency configuration is worse than the test-set mean baseline ($R^2<0$).
+
+\input{tables/model_results}
+
+For RSSI KNN, $k=9$ performs best among the four stored configurations, but remains weak ($R^2=0.099$). Figure~\ref{fig:knn} shows the contraction of predictions toward the center of the RSSI range. The repository also contains feature-coefficient/importances plots and predicted-versus-actual plots; only representative figures whose generating scripts are traceable are included here.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{knn_rssi_k9.png}
+\caption{Actual versus predicted RSSI for KNN with $k=9$ on the fixed 20\% holdout. The dashed line denotes perfect prediction.}
+\label{fig:knn}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{weather_metrics_plot.png}
+\caption{Repository-generated weather time series for the December 17--18 snow-session file. The source script plots temperature, humidity, snow-depth intensity, rain intensity, wind speed, and MOR visibility. Units are undocumented.}
+\label{fig:weather}
+\end{figure}

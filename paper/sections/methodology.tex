@@ -1,0 +1,19 @@
+\section{Methodology}
+For each LoRa packet timestamp $t_i$, the merge script selects weather rows whose timestamps fall in
+\begin{equation}
+ t_i-5~\mathrm{s} \leq t_w \leq t_i+5~\mathrm{s}.
+\end{equation}
+It assigns the arithmetic mean of every numeric weather column and the mode of every nonnumeric weather column to the LoRa row. Packets with no weather observation in this interval are discarded.
+
+For scalar weather feature $x$ and link target $y$, the scripts calculate the Pearson product-moment correlation
+\begin{equation}
+r_{xy}=\frac{\sum_i(x_i-\bar{x})(y_i-\bar{y})}
+{\sqrt{\sum_i(x_i-\bar{x})^2\sum_i(y_i-\bar{y})^2}}.
+\end{equation}
+They also form unstandardized row-wise arithmetic means of feature combinations and correlate those means with each target. Because this operation mixes variables with different units and scales, combination scores are reported only as exploratory repository artifacts, not as physically meaningful composite indices.
+
+The regression scripts compare ordinary least squares, second-degree polynomial regression, random forests, Lasso, Ridge, and $k$-nearest-neighbor (KNN) regression. A fixed \texttt{random\_state=42} is used. Lasso, Ridge, and KNN inputs are standardized using statistics fitted to the training partition. Performance is measured with
+\begin{equation}
+R^2=1-\frac{\sum_i(y_i-\hat y_i)^2}{\sum_i(y_i-\bar y)^2}
+\end{equation}
+and root-mean-square error (RMSE).

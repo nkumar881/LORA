@@ -1,0 +1,6 @@
+\section{Experimental Setup}
+RSSI-specific scripts use ten selected predictors: humidity, rain rate, temperature, radar reflectivity, pressure, wind speed, rain accumulated, kinetic energy, MOR visibility, and particles detected. Ordinary linear regression uses a 90/10 random split. Polynomial, random-forest, and KNN RSSI scripts use an 80/20 split. The random forest uses 200 trees; the polynomial model uses degree two; KNN is evaluated at $k\in\{3,5,7,9\}$.
+
+SNR uses 14 weather predictors, including WeatherCode4680, and all six model families on an 80/20 split. Throughput and latency use 13 predictors (excluding rain rate and WeatherCode4680) with the same split. Their forests use 100 trees, Lasso uses $\alpha=0.1$, Ridge uses $\alpha=1.0$, polynomial regression uses degree two, and KNN uses $k=5$. Hyperparameters were fixed in code; no cross-validation or tuning trace is present.
+
+\textbf{TODO:} Document the collection site, radio and meteorological instruments, units, packet schedule, session boundaries, environmental exposure, and rationale for feature/hyperparameter selection.

@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\caption{Fixed-Holdout Regression Results Reproduced from Repository Scripts}
+\label{tab:model-results}
+\centering
+\footnotesize
+\begin{tabular}{lrr|rr|rr|rr}
+\toprule
+&\multicolumn{2}{c|}{RSSI}&\multicolumn{2}{c|}{SNR}&\multicolumn{2}{c|}{Throughput}&\multicolumn{2}{c}{Latency}\\
+Model & $R^2$ & RMSE & $R^2$ & RMSE & $R^2$ & RMSE & $R^2$ & RMSE\\
+\midrule
+Linear & $0.173^{a}$ & $4.370$ & $0.201$ & $3.090$ & $0.107$ & $16.212$ & $-0.029$ & $0.063$\\
+Polynomial (2) & $0.190$ & $3.958$ & $0.208$ & $3.077$ & $0.097$ & $16.303$ & $-0.050$ & $0.063$\\
+Random forest & $0.004^{b}$ & $4.389$ & $0.061$ & $3.350$ & $-0.042$ & $17.509$ & $-0.039$ & $0.063$\\
+Lasso & --- & --- & $0.208$ & $3.077$ & $0.118$ & $16.115$ & $-0.001$ & $0.062$\\
+Ridge & --- & --- & $0.202$ & $3.087$ & $0.109$ & $16.191$ & $-0.028$ & $0.063$\\
+KNN ($k=5$) & $0.046$ & $4.295$ & $0.057$ & $3.357$ & $-0.131$ & $18.248$ & $-0.065$ & $0.064$\\
+\bottomrule
+\end{tabular}
+
+\raggedright\scriptsize $^{a}$RSSI linear regression uses a 10\% test split; other entries use 20\%. $^{b}$RSSI forest uses 200 trees; the other forests use 100. Dashes indicate that the repository has no corresponding RSSI configuration.
+\end{table*}

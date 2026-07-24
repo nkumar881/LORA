@@ -1,0 +1,46 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{cite}
+\graphicspath{{figures/}}
+
+\title{Weather Conditions and LoRa Link Metrics: A Retrospective Analysis of Co-Located Measurements}
+
+\author{\IEEEauthorblockN{TODO: Author Name(s)}
+\IEEEauthorblockA{TODO: Affiliation, City, Country\\
+TODO: Email address(es)}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This paper reconstructs an exploratory study of associations between local weather observations and Long Range (LoRa) link measurements. The repository contains 1,059 LoRa records and 14,494 weather records spanning December 17, 2024 to January 2, 2025. A timestamp-window procedure matched 1,058 LoRa records to weather observations within $\pm5$~s. The resulting data contain received signal strength indicator (RSSI), signal-to-noise ratio (SNR), throughput, latency, and scalar meteorological variables. The strongest reproduced individual Pearson correlations were between cumulative/absolute rain readings and RSSI ($r=0.386$), SNR ($r=0.450$), and throughput ($r=0.312$). All individual correlations with latency were weak ($|r|\leq0.084$). On a fixed random holdout, the best recorded RSSI model among the tested configurations was degree-two polynomial regression ($R^2=0.190$), while the best SNR and throughput configurations were Lasso regression ($R^2=0.208$ and $0.118$, respectively). Every latency model had negative holdout $R^2$. These results indicate limited predictive performance and do not establish causality. Ambiguities in sensor units, sampling protocol, duplicated weather records, temporal dependence, and vector-valued weather fields constrain interpretation.
+\end{abstract}
+
+\begin{IEEEkeywords}
+LoRa, weather, RSSI, SNR, throughput, latency, regression, wireless sensing
+\end{IEEEkeywords}
+
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/dataset}
+\input{sections/methodology}
+\input{sections/preprocessing}
+\input{sections/experiments}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\section*{Acknowledgment}
+\textbf{TODO:} Add funding, institutional, equipment, and contributor acknowledgments.
+
+\section*{References}
+\textbf{TODO:} Add verified references after completing the literature review. The accompanying \texttt{references.bib} is intentionally empty to avoid fabricated citations.
+
+\appendices
+\section{Repository Audit Notes}
+The source audit covered all 12 Python files, 18 CSV files, two Excel workbooks, 20 PNG figures, the backup source listing, and project metadata. No notebooks, PDFs, LaTeX manuscripts, formal reports, presentations, or saved console logs were present. The empty file \texttt{merged\_lora\_weather.csv} was not used.
+
+\end{document}
